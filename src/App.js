@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import AddUser from "./components/Users/AddUser";
 import UsersList from "./components/Users/UsersList";
 
-const users = [
-  { username: "Guy", age: 27 },
-  { username: "Nir", age: 28 },
-  { username: "Eyal", age: 26 },
-];
-
 function App() {
+  const [usersList, setUsersList] = useState([]);
+
+  const addUserHandler = (uName, uAge) => {
+    setUsersList((prevUsersList) => {
+      return [...prevUsersList, {username: uName, age: uAge, id: Math.random().toString()}];
+    });
+  };
+
   return (
     <div>
-      <AddUser></AddUser>
-      <UsersList users={users}></UsersList>
+      <AddUser onAddUser={addUserHandler}></AddUser>
+      <UsersList users={usersList}></UsersList>
     </div>
   );
 }
